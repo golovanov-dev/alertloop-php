@@ -1,0 +1,20 @@
+/vendor/
+/var/
+.phpunit.cache/
+.phpunit.result.cache
+.env
+.env.*
+!.env.example
+*.log
+.DS_Store
+
+# AI-инструкции, внутренняя документация и Publication Package (не публикуются)
+/.ai/
+/docs/
+/publication/
+.claude/
+AGENTS.md
+CLAUDE.md
+
+# Cron marker written by tools/hosting-check.php --cron
+/tools/hosting-check.cron
