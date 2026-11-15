@@ -16,5 +16,3 @@
 AGENTS.md
 CLAUDE.md
 
-# Cron marker written by tools/hosting-check.php --cron
-/tools/hosting-check.cron

@@ -1,0 +1,48 @@
+{
+    "name": "golovanov/alertloop-php",
+    "description": "Incident alerts and reliable delivery for PHP sites on shared hosting: Telegram, MAX and email, MySQL only.",
+    "type": "library",
+    "license": "MIT",
+    "keywords": [
+        "alerts",
+        "incidents",
+        "outbox",
+        "telegram",
+        "shared-hosting"
+    ],
+    "autoload": {
+        "psr-4": {
+            "Golovanov\\AlertLoop\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Golovanov\\AlertLoop\\Tests\\": "tests/"
+        }
+    },
+    "bin": [
+        "bin/alertloop"
+    ],
+    "require": {
+        "php": ">=8.2",
+        "ext-curl": "*",
+        "ext-json": "*",
+        "ext-mbstring": "*",
+        "ext-pdo_mysql": "*",
+        "phpmailer/phpmailer": "^7.2"
+    },
+    "scripts": {
+        "test": "phpunit",
+        "analyse": "phpstan analyse --memory-limit=512M"
+    },
+    "config": {
+        "platform": {
+            "php": "8.2.0"
+        },
+        "sort-packages": true
+    },
+    "require-dev": {
+        "phpstan/phpstan": "^2.3",
+        "phpunit/phpunit": "^11"
+    }
+}

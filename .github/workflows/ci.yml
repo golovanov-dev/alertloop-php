@@ -1,0 +1,58 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    continue-on-error: ${{ matrix.observe }}
+
+    strategy:
+      fail-fast: false
+      matrix:
+        php-version: ['8.2', '8.3', '8.4']
+        database: ['mysql:5.7', 'mysql:8.4']
+        observe: [false]
+        include:
+          # MariaDB is observed, not supported.
+          - php-version: '8.4'
+            database: 'mariadb:10.6'
+            observe: true
+
+    services:
+      db:
+        image: ${{ matrix.database }}
+        env:
+          MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+          MYSQL_DATABASE: alertloop_test
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping -h 127.0.0.1 -uroot"
+          --health-interval=5s
+          --health-timeout=5s
+          --health-retries=20
+
+    env:
+      ALERTLOOP_TEST_DB_HOST: 127.0.0.1
+      ALERTLOOP_TEST_DB_PORT: 3306
+      ALERTLOOP_TEST_DB_NAME: alertloop_test
+      ALERTLOOP_TEST_DB_USER: root
+      ALERTLOOP_TEST_DB_PASSWORD: ''
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-version }}
+          extensions: curl, pdo_mysql, mbstring
+          coverage: none
+          tools: composer:v2
+
+      - run: composer install --prefer-dist --no-interaction --no-progress
+      - run: composer validate --strict
+      - run: composer test
+      - run: composer analyse
