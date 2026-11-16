@@ -153,8 +153,13 @@ $id = $al->outbox('crm.lead')->push(['name' => 'Ann', 'phone' => '+10000000000']
 
 ## Channels
 
-- **Telegram:** the token comes from [@BotFather](https://t.me/BotFather); add the bot to the chat, send
-  `/start` there and take `chat.id` from `https://api.telegram.org/bot<token>/getUpdates`.
+- **Telegram:** the token comes from [@BotFather](https://t.me/BotFather). Add the bot to a group, or to a
+  channel as an administrator allowed to post. To find the chat id, send `/start@<bot username>` in the
+  group (a plain `/start` may not reach the bot there) or publish any post in the channel, then open
+  `https://api.telegram.org/bot<token>/getUpdates` within a day: the id is `chat.id` under `message` for a
+  group and under `channel_post` for a channel, such as `-1001234567890`. A public channel also takes
+  `@channelname`. When a group becomes a supergroup its id changes and the old one is refused with "group
+  chat was upgraded to a supergroup chat" in the PHP error log; find the new id the same way.
   `'api_base' => 'https://tg-mirror.example.net'` sends through a mirror of the Bot API.
 - **MAX:** create the bot and copy its token at [business.max.ru/self](https://business.max.ru/self), section
   "Chat bots" (API docs: [dev.max.ru](https://dev.max.ru)); the chat ids of the
