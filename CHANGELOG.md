@@ -2,7 +2,7 @@
 
 All notable changes to this project are documented in this file.
 
-## 0.1.0 - 2026-11-15
+## 0.1.0 - 2026-11-16
 
 ### Added
 - Incidents: `fire()` and `resolve()` by key; repeats of an open incident are counted, not re-sent; reminders every `alerts.remind_every` minutes (default 60); recovery message with downtime; `resolveAfter` resolves an incident after that many minutes without a repeat.
